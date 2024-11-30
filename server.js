@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //routes
 app.route('/')
     .get((req, res) => {
-        res.sendFile(__dirname + "/public/homepage/brownyTemplate/index.html")
+        res.sendFile(__dirname + "/public/index.html")
     })
 
 //listen

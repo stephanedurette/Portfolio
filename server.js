@@ -8,8 +8,8 @@ const timestampMicroserviceRoute = require('./routes/timestamp_microservice');
 
 
 //middleware
-app.use(express.static(path.join(__dirname, 'public/homepage')));
-app.use(express.static(path.join(__dirname, 'public/timestamp_microservice')));
+app.use('/timestamp_microservice', express.static(path.join(__dirname, 'public/timestamp_microservice')));
+app.use('/',express.static(path.join(__dirname, 'public/homepage')));
 
 //routes
 

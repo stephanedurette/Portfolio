@@ -6,7 +6,7 @@ const homeRoute = require('./routes/home');
 require('dotenv').config();
 
 //middleware
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public/homepage')));
 
 //routes
 app.get('/', homeRoute);

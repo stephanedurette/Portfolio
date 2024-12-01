@@ -8,12 +8,13 @@ router.get('/', function(req, res, next){
     res.sendFile(filePath);
 });
 
-router.get('/app/:date', function(req, res, next){
+router.get('/api/', function(req, res, next){
+    res.send(controller.GetCurrentTimeStampObject());
+});
+
+router.get('/api/:date?', function(req, res, next){
     res.send(controller.GetTimeStampObjectFromString(req.params.date));
 });
 
-router.get('/app/', function(req, res, next){
-    res.send(controller.GetCurrentTimeStampObject());
-});
 
 module.exports = router;

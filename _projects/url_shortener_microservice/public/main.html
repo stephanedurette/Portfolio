@@ -9,7 +9,14 @@
   </head>
   <body>
     <h1>Url Shortener Microservice</h1>
+    <form action = "/url_shortener_microservice/api/shorturl" method = "post">
+      <input type="text" name = "url", placeholder="https://forum.freecodecamp.org/" size="30">
+      <input type="submit" value="post url">
+    </form>
     <h2>Example Usage</h2>
-    <h2>Example Output</h2>
+    <p><a href = "/url_shortener_microservice/api/shorturl/3">[project url]/api/shorturl/3</a></p>
+    <h3>will redirect to</h3>
+    <p><a href = "https://forum.freecodecamp.org/">https://forum.freecodecamp.org/</a></p>
+    
   </body>
 </html>

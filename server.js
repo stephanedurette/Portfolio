@@ -2,6 +2,7 @@ const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const mongoose = require('mongoose');
 
 dotenv.config();
 const app = express();
@@ -24,7 +25,20 @@ app.get('/', (req, res) => {
     res.redirect('/homepage');
 })
 
-//listen
-app.listen(process.env.PORT || 3000, () => {
-    console.log(`Example app listening on port ${process.env.PORT}`);
-});
+async function main(){
+    try {
+        // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
+        await mongoose.connect(process.env.DB_CONN, { serverApi: { version: '1', strict: true, deprecationErrors: true } });
+        await mongoose.connection.db.admin().command({ ping: 1 });
+        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+      } finally {
+        // Ensures that the client will close when you finish/error
+        await mongoose.disconnect();
+      }
+
+    app.listen(process.env.PORT || 3000, () => {
+        console.log(`Example app listening on port ${process.env.PORT}`);
+    });
+}
+
+main().catch((err) => console.log(err));

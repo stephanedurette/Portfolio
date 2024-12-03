@@ -8,7 +8,7 @@ const app = express();
 
 app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
-const projects = ['homepage', 'timestamp_microservice', 'header_parser_microservice']
+const projects = ['homepage', 'timestamp_microservice', 'header_parser_microservice', 'url_shortener_microservice']
 
 projects.forEach((p) => {
     var path = `${__dirname}/_projects/${p}`;

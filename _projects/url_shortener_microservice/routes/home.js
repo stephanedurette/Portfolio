@@ -21,4 +21,6 @@ router.post('/api/shorturl/', async function(req, res){
     //console.log(exists);
 });
 
+//https://stackoverflow.com/questions/30931079/validating-a-url-in-node-js
+
 module.exports = router;

@@ -13,7 +13,7 @@ app.use((req,res,next)=>{
     if(req.secure || process.env.MODE !== 'prod'){
         next();
     }else{
-        res.redirect('https://' + req.hostname + req.url + ':' + 3000);
+        res.redirect('https://' + req.hostname + req.url + ':' + process.env.PORT);
     }
 });
 
@@ -46,8 +46,8 @@ async function main(){
         await mongoose.disconnect();
       }
 
-    app.listen(3000, () => {
-        console.log(`Example app listening on port ${3000}`);
+    app.listen(process.env.PORT, () => {
+        console.log(`Example app listening on port ${process.env.PORT}`);
     });
 }
 

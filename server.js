@@ -7,6 +7,16 @@ const mongoose = require('mongoose');
 dotenv.config();
 const app = express();
 
+app.enable('trust proxy');
+
+app.use((req,res,next)=>{
+    if(req.secure || process.env.MODE !== 'prod'){
+        next();
+    }else{
+        res.redirect('https://' + req.hostname + req.url + ':' + 3000);
+    }
+});
+
 app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
 const projects = ['homepage', 'timestamp_microservice', 'header_parser_microservice', 'url_shortener_microservice']
@@ -36,8 +46,8 @@ async function main(){
         await mongoose.disconnect();
       }
 
-    app.listen(process.env.PORT || 3000, () => {
-        console.log(`Example app listening on port ${process.env.PORT}`);
+    app.listen(3000, () => {
+        console.log(`Example app listening on port ${3000}`);
     });
 }
 

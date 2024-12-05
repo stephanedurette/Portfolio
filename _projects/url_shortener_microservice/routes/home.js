@@ -3,7 +3,9 @@ var express = require('express');
 var router = express.Router({ mergeParams: true });
 const path = require('path');
 const bodyParser = require('body-parser');
+const dns = require('dns');
 
+var isValidUrl;
 
 router.use(bodyParser.urlencoded({extended: false}));
 
@@ -17,10 +19,32 @@ router.get('/api/shorturl/:shorturl?', (req, res) => {
 });
 
 router.post('/api/shorturl/', async function(req, res){
-    //var exists = await urlExist(req.body.url);
-    //console.log(exists);
+    isValidUrl(req.body.url, (isValid) => {
+        if (isValid){
+            res.send(req.body.url);
+        } else {
+            res.send("invalid url");
+        }
+    })
 });
 
-//https://stackoverflow.com/questions/30931079/validating-a-url-in-node-js
+isValidUrl = (url, callback) => {
+    try {
+        dns.lookup(new URL(url).host, (err, address, family) => {
+            if (err){
+                console.log(err);
+                callback(false);
+            } else if(!address){
+                console.log('invalid address');
+                callback(false);
+            } else {
+                callback(true);
+            }
+        })
+    } catch (err) {
+        console.log(err);
+        callback(false);
+    }
+}
 
 module.exports = router;

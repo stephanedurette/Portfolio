@@ -1,4 +1,3 @@
-const { debug } = require('console');
 var express = require('express');
 var router = express.Router({ mergeParams: true });
 const path = require('path');

@@ -13,7 +13,7 @@ app.use((req,res,next)=>{
     if(req.secure || process.env.MODE !== 'prod'){
         next();
     }else{
-        res.redirect('https://' + req.hostname);
+        res.redirect('https://' + req.hostname + req.url);
     }
 });
 
@@ -32,6 +32,10 @@ projects.forEach((p) => {
 })
 
 app.get('/', (req, res) => {
+    res.redirect('/homepage');
+})
+
+app.get('/defaultsite', (req, res) => {
     res.redirect('/homepage');
 })
 

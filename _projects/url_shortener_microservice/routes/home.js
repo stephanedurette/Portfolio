@@ -12,8 +12,14 @@ router.get('/', function(req, res, next){
     res.sendFile(filePath);
 });
 
-router.get('/api/shorturl/:shorturl?', (req, res) => {
-    res.send("blah")
+router.get('/api/shorturl/:shorturl?', async(req, res) => {
+    var document = await shortUrl.findOne({shortUrl:req.params.shorturl});
+
+    if (!document){
+        res.send({ error: 'invalid url' });
+    } else {
+        res.redirect(document.fullUrl);
+    }
 });
 
 router.post('/api/shorturl/', (req, res) => {

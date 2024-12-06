@@ -2,9 +2,8 @@ var express = require('express');
 var router = express.Router({ mergeParams: true });
 const path = require('path');
 const bodyParser = require('body-parser');
-const dns = require('dns');
-
-var isValidUrl;
+const isValidUrl = require('../controllers/isValidUrl');
+const shortUrl = require('../models/shortUrl');
 
 router.use(bodyParser.urlencoded({extended: false}));
 
@@ -17,33 +16,18 @@ router.get('/api/shorturl/:shorturl?', (req, res) => {
     res.send("blah")
 });
 
-router.post('/api/shorturl/', async function(req, res){
-    isValidUrl(req.body.url, (isValid) => {
+router.post('/api/shorturl/', (req, res) => {
+    isValidUrl(req.body.url, async function(isValid){
         if (isValid){
-            res.send(req.body.url);
+            var document = await shortUrl.findOne({fullUrl:req.body.url});
+            if (!document){
+                document = await shortUrl.create({fullUrl:req.body.url});
+            } 
+            res.send({ original_url : document.fullUrl, short_url : document.shortUrl })
         } else {
-            res.send("invalid url");
+            res.send({ error: 'invalid url' });
         }
     })
 });
-
-isValidUrl = (url, callback) => {
-    try {
-        dns.lookup(new URL(url).host, (err, address, family) => {
-            if (err){
-                console.log(err);
-                callback(false);
-            } else if(!address){
-                console.log('invalid address');
-                callback(false);
-            } else {
-                callback(true);
-            }
-        })
-    } catch (err) {
-        console.log(err);
-        callback(false);
-    }
-}
 
 module.exports = router;

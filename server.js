@@ -13,7 +13,7 @@ app.use((req,res,next)=>{
     if(req.secure || process.env.MODE !== 'prod'){
         next();
     }else{
-        res.redirect('https://' + req.hostname + req.url);
+        res.redirect('https://' + req.hostname);
     }
 });
 

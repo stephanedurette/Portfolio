@@ -1,0 +1,25 @@
+body{
+    background-color: rgb(245, 235, 215);
+}
+
+h1,h2,h3,form{
+    text-align: center;
+}
+
+form{
+    margin:40px;
+    align-content: center;
+}
+
+input{
+    display:block;
+    margin:0 auto;
+}
+
+p{
+    text-align: center;
+}
+
+p span{
+    background-color: white;
+}

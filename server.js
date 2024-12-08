@@ -19,7 +19,7 @@ app.use((req,res,next)=>{
 
 app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
-const projects = ['homepage', 'timestamp_microservice', 'header_parser_microservice', 'url_shortener_microservice']
+const projects = ['homepage', 'timestamp_microservice', 'header_parser_microservice', 'url_shortener_microservice', 'exercise_tracker']
 
 projects.forEach((p) => {
     var path = `${__dirname}/_projects/${p}`;

@@ -41,7 +41,7 @@ app.get('/defaultsite', (req, res) => {
 
 const start = async() =>{
     try{
-        await db.connect();
+        await db.connect('FCC_Backend_Projects');
 
         app.listen(process.env.PORT, () => {
             console.log(`Example app listening on port ${process.env.PORT}`);

@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 
 const ExerciseUser = require('../models/exercise_user');
+const Exercise = require('../models/exercise');
 
 router.use(bodyParser.urlencoded({extended: false}));
 
@@ -17,7 +18,26 @@ router.get('/', function(req, res){
 });
 
 router.post('/api/users/:id/exercises', async(req, res) => {
-    res.send("finally")
+
+    console.log(req.body)
+    
+    var newExercise = await Exercise.create({
+        'user_id':req.body.id,
+        'date':req.body.date,
+        'duration':req.body.duration,
+        'description':req.body.description
+    })
+    
+    var userName = await ExerciseUser.find({'_id':req.body.id})
+    console.log(userName.name)
+    res.send({
+        username:userName.name,
+        description:req.body.description,
+        duration:req.body.duration,
+        date:req.body.date,
+        _id:req.body.id,
+    });
+    
 })
 
 router.post('/api/users', async(req, res) => {
